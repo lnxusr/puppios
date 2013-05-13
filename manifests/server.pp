@@ -26,7 +26,7 @@ include puppios::params
         }
    # add a htpasswd user for nagios
 	htpasswd { "nagiosadmin":
- 	encryptpasswd => "$apr1$AAJvNhnI$nLg6q.oJBJE9nZQTd7pzP1",  # encrypted password hash goes here
+ 	cryptpasswd => "$apr1$AAJvNhnI$nLg6q.oJBJE9nZQTd7pzP1",  # encrypted password hash goes here
 	target => "${puppios::params::configdir}/htpasswd.users",
 }
 }
