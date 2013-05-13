@@ -13,8 +13,19 @@
 # Sample Usage:
 #
 class nagios::server {
+
+    # prevent nagios from installing the postfix mta
+        package { 'lsb-invalid-mta':
+            ensure => present,
+        }
+
     
+    package { $server_$packages:
+                ensure => present,
+                require => Package['lsb-invalid-mta'],
+        }
 }
+
 inherits nagios::params {
 
   }
