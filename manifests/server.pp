@@ -24,5 +24,10 @@ include puppios::params
                 ensure => present,
                 require => Package['lsb-invalid-mta'],
         }
+   # add a htpasswd user for nagios
+	htpasswd { "nagiosadmin":
+ 	ryptpasswd => "$apr1$AAJvNhnI$nLg6q.oJBJE9nZQTd7pzP1",  # encrypted password hash goes here
+	target => "${puppios::params::configdir}/htpasswd.users",
+}
 }
 
