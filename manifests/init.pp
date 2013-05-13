@@ -1,4 +1,4 @@
-# Class: nagios
+# Class: puppios
 #
 # This class manages Nagios3 environment
 #
@@ -12,6 +12,7 @@
 #
 # Sample Usage:
 #
-class puppios {
+class puppios
+ {
     
 }

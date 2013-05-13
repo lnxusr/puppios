@@ -13,19 +13,16 @@
 # Sample Usage:
 #
 class puppios::server {
-
+include puppios::params
     # prevent nagios from installing the postfix mta
         package { 'lsb-invalid-mta':
             ensure => present,
         }
 
-    
-    package { $server_$packages:
+
+    package { $puppios::params::server_packages:
                 ensure => present,
                 require => Package['lsb-invalid-mta'],
         }
 }
 
-inherits puppios::params {
-
-  }
