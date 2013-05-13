@@ -12,6 +12,6 @@
 #
 # Sample Usage:
 #
-class nagios {
+class puppios {
     
 }

@@ -12,7 +12,7 @@
 #
 # Sample Usage:
 #
-class nagios::server {
+class puppios::server {
 
     # prevent nagios from installing the postfix mta
         package { 'lsb-invalid-mta':
@@ -26,6 +26,6 @@ class nagios::server {
         }
 }
 
-inherits nagios::params {
+inherits puppios::params {
 
   }

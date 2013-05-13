@@ -12,12 +12,12 @@
 #
 
 # TODO: add real docs
-class nagios::params {
+class puppios::params {
 
     #find os family and set variables. Only support for debian based systems for now.
     case $::osfamily {
         'Debian': {
-            $server_package        = 'nagios3',
+            $server_$packages      = ['nagios3', 'nagios-images', 'nagios-plugins', 'nagios3-doc',],
             $server_plugin_package = 'nagios-plugins',
             $nrpe_server_package   = 'nagios-nrpe-server',
             $nrpe_package          = 'nagios-nrpe-plugin',
