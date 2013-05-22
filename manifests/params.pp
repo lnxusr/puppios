@@ -13,10 +13,10 @@
 
 # TODO: add real docs
 class puppios::params {
-    $webuser      = 'nagiosadmin',
-    $webpassword 
+    $webuser      = 'nagiosadmin'
+    $webpassword  = unset 
     
-    case $::osfamily {                                                                                 #find os family and set variables. Only support for debian based systems for now.
+    case $osfamily {                                                                                 #find os family and set variables. Only support for debian based systems for now.
         'Debian': {
             $server_packages       = ['nagios3', 'nagios-images', 'nagios-plugins', 'nagios3-doc',]
             $server_plugin_package = 'nagios-plugins'
