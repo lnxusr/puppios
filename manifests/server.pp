@@ -14,20 +14,22 @@
 #
 class puppios::server {
 include puppios::params
-    # prevent nagios from installing the postfix mta
-        package { 'lsb-invalid-mta':
+
+# prevent nagios from installing the postfix mta
+    package { 'lsb-invalid-mta':
             ensure => present,
-        }
+    }
 
 
     package { $puppios::params::server_packages:
-                ensure => present,
-                require => Package['lsb-invalid-mta'],
+        ensure => present,
+        require => Package['lsb-invalid-mta'],
+    }
+
+# add a htpasswd user for nagios
+	htpasswd { $puppios::params::webuser:
+ 	    cryptpasswd => $puppios::params::webpassword,  # encrypted password hash goes here
+	    target => "${puppios::params::configdir}/htpasswd.users",
         }
-   # add a htpasswd user for nagios
-	htpasswd { "nagiosadmin":
- 	cryptpasswd => "$apr1$AAJvNhnI$nLg6q.oJBJE9nZQTd7pzP1",  # encrypted password hash goes here
-	target => "${puppios::params::configdir}/htpasswd.users",
-}
 }
 

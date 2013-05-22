@@ -13,9 +13,10 @@
 
 # TODO: add real docs
 class puppios::params {
-
-    #find os family and set variables. Only support for debian based systems for now.
-    case $::osfamily {
+    $webuser      = 'nagiosadmin',
+    $webpassword 
+    
+    case $::osfamily {                                                                                 #find os family and set variables. Only support for debian based systems for now.
         'Debian': {
             $server_packages       = ['nagios3', 'nagios-images', 'nagios-plugins', 'nagios3-doc',]
             $server_plugin_package = 'nagios-plugins'
@@ -26,8 +27,5 @@ class puppios::params {
         default: {
             fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} currently only supports osfamily RedHat and Debian")
         }
- }
-
-
-
+    }
 }
