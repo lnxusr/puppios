@@ -12,24 +12,39 @@
 #
 # Sample Usage:
 #
-class puppios::server {
-include puppios::params
-
-# prevent nagios from installing the postfix mta
-    package { 'lsb-invalid-mta':
-            ensure => present,
+class puppios::server(
+)
+inherits puppios::params
+{
+    package { $server_packages:
+        ensure  => installed,
     }
-
-
-    package { $puppios::params::server_packages:
-        ensure => present,
-        require => Package['lsb-invalid-mta'],
+    notify{"Folder is: ${base_d}": }
+    file { $base_d:
+        ensure => "directory",
+        owner  => "nagios",
+        group  => "nagios",
+        mode   => 755,
     }
-
-# add a htpasswd user for nagios
-	htpasswd { $puppios::params::webuser:
- 	    cryptpasswd => $puppios::params::webpassword,  # encrypted password hash goes here
-	    target => "${puppios::params::configdir}/htpasswd.users",
-        }
+    notify{"Folder is: ${host_d}": }
+    file { [$host_d, $services_d, $commands_d]:
+        ensure  => "directory",
+        owner   => "nagios",
+        group   => "nagios",
+        mode    => 755,
+        require => File[$base_d],
+    }
+    file { $conf_f:
+        ensure  => present,
+        owner   => "nagios",
+        group   => "nagios",
+        mode    => 644,
+        content => template('puppios/nagios.cfg.erb')
+    }
+    service { 'nagios3':
+        ensure  => running,
+        alias   => nagios,
+        require => Package[$server_packages],
+    }
 }
 
