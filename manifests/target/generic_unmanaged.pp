@@ -11,7 +11,7 @@ define puppios::target::generic_unmanaged(
     use     => "generic-host",
   }
 
-  nagios_hostextinfo { $fqdn:
+  nagios_hostextinfo { $unmanaged_fqdn:
     ensure          => present,
     icon_image_alt  => $unmanaged_operatingsystem,
     icon_image      => "base/$unmanaged_operatingsystem.png",
