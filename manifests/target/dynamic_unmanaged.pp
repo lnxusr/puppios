@@ -1,4 +1,4 @@
-define puppios::target::dynamic_puppios(
+define puppios::target::dynamic_unmanneged(
   $puppios_name       = $title,
   $puppios_fqdn,
   $puppios_ipaddress,
