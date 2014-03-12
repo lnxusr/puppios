@@ -13,8 +13,8 @@
 
 # TODO: add real docs
 class puppios::params {
-  $puppet_webuser      = 'nagiosadmin',
-  $puppet_webpassword  
+  $puppet_webuser      = 'nagiosadmin'
+  $puppet_webpassword  = undef
 
 
   #find os family and set variables. Only support for debian based systems for now.

@@ -13,9 +13,9 @@
 # Sample Usage:
 #
 class puppios::server (
-  $puppet_webuser      = puppios::params::$puppet_webuser,
-  $puppet_webpassword  = puppios::params::$puppet_webpassword,
-  $puppet_configdir    = puppios::params::$puppet_configdir
+  $puppet_webuser      = $puppios::params::puppet_webuser,
+  $puppet_webpassword  = $puppios::params::puppet_webpassword,
+  $puppet_configdir    = $puppios::params::puppet_configdir
   ) inherits puppios::params
   {
 
