@@ -14,14 +14,14 @@ define puppios::target::generic_unmanaged(
   nagios_hostextinfo { $fqdn:
     ensure          => present,
     icon_image_alt  => $unmanaged_operatingsystem,
-    icon_image      => "base/$operatingsystem.png",
-    statusmap_image => "base/$operatingsystem.gd2",
+    icon_image      => "base/$unmanaged_operatingsystem.png",
+    statusmap_image => "base/$unmanaged_operatingsystem.gd2",
   }
 
   nagios_service { "check_ping_${unmanaged_name}":
     use                 => "generic-service",
-    service_description => "Check ping ${hostname}",
+    service_description => "Check ping ${unmanaged_name}",
     check_command       => "check_ping!200.0,40%!400.0,80%",
-    host_name           => "$unmanaged_icon_image",
+    host_name           => "$unmanaged_fqdn",
   }
 }
