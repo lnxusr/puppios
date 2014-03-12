@@ -1,0 +1,8 @@
+name 'lnxusr-puppios'
+version '0.0.1'
+source 'git://github.com/lnxusr/puppios.git'
+author 'Wout van Heeswijk'
+description 'Puppet Nagios module'
+summary 'Puppet Nagios module'
+license 'ASL 2.0'
+project_page 'https://github.com/lnxusr/puppios'

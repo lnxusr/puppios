@@ -12,24 +12,22 @@
 #
 # Sample Usage:
 #
-class puppios::server {
-include puppios::params
+class puppios::server (
+  $puppet_webuser      = puppios::params::$puppet_webuser,
+  $puppet_webpassword  = puppios::params::$puppet_webpassword,
+  $puppet_configdir    = puppios::params::$puppet_configdir
+  ) inherits puppios::params
+  {
 
-# prevent nagios from installing the postfix mta
-    package { 'lsb-invalid-mta':
-            ensure => present,
-    }
 
+  package { $puppios::params::server_packages:
+    ensure => present,
+  }
 
-    package { $puppios::params::server_packages:
-        ensure => present,
-        require => Package['lsb-invalid-mta'],
-    }
-
-# add a htpasswd user for nagios
-	htpasswd { $puppios::params::webuser:
- 	    cryptpasswd => $puppios::params::webpassword,  # encrypted password hash goes here
-	    target => "${puppios::params::configdir}/htpasswd.users",
-        }
+  # add a htpasswd user for nagios
+  htpasswd { $puppios::params::webuser:
+    cryptpasswd => $puppios::params::webpassword,  # encrypted password hash goes here
+	target => "${puppet_configdir}/htpasswd.users",
+  }
 }
 
