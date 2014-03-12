@@ -26,8 +26,13 @@ class puppios::server (
 
   # add a htpasswd user for nagios
   htpasswd { $puppios::params::puppet_webuser:
-    cryptpasswd => "$puppet_webpassword",  # encrypted password hash goes here
+    cryptpasswd => "${puppet_webpassword}",  # encrypted password hash goes here
 	target      => "${puppet_configdir}/htpasswd.users",
+  }
+  file {${puppet_configdir}/htpasswd.users:
+    owner => 'root',
+    group => 'root',
+    mode  => '0644',
   }
 }
 
