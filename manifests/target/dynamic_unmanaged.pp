@@ -2,7 +2,8 @@ define puppios::target::dynamic_unmanaged(
   $puppios_name       = $title,
   $puppios_fqdn,
   $puppios_ipaddress,
-  $puppios_operatingsystem
+  $puppios_operatingsystem,
+  $puppios_services
 ) {
 	nagios_host { $puppios_fqdn:
     ensure  => present,
@@ -17,5 +18,5 @@ define puppios::target::dynamic_unmanaged(
     icon_image      => "base/$puppios_operatingsystem.png",
     statusmap_image => "base/$puppios_operatingsystem.gd2",
   }
-  notify{"The value is: ${services}": }
+  notify{"The value is: ${puppios_services}": }
 }
