@@ -5,5 +5,5 @@ class puppios::resources::generic_unmanaged (
   $hash_generic_unmanaged
 ){
 
-	create_resource('puppios::target::generic_unmanaged', $hash_generic_unmanaged)
+	create_resources('puppios::target::generic_unmanaged', $hash_generic_unmanaged)
 }
