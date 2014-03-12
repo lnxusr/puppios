@@ -38,6 +38,6 @@ class puppios::server (
    Nagios_host <<||>>
    Nagios_service <<||>>
    Nagios_hostextinfo <<||>>
-
+  
 }
 
