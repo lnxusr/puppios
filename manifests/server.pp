@@ -34,5 +34,10 @@ class puppios::server (
     group => 'root',
     mode  => '0644',
   }
+   # collect resources and populate /etc/nagios/nagios_*.cfg
+   Nagios_host <<||>>
+   Nagios_service <<||>>
+   Nagios_hostextinfo <<||>>
+
 }
 
