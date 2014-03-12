@@ -29,7 +29,7 @@ class puppios::server (
     cryptpasswd => "${puppet_webpassword}",  # encrypted password hash goes here
 	target      => "${puppet_configdir}/htpasswd.users",
   }
-  file {${puppet_configdir}/htpasswd.users:
+  file { "${puppet_configdir}/htpasswd.users":
     owner => 'root',
     group => 'root',
     mode  => '0644',
