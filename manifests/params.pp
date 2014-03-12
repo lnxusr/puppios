@@ -13,8 +13,8 @@
 
 # TODO: add real docs
 class puppios::params {
-  $webuser      = 'nagiosadmin',
-  $webpassword  
+  $puppet_webuser      = 'nagiosadmin',
+  $puppet_webpassword  
 
 
   #find os family and set variables. Only support for debian based systems for now.
@@ -25,12 +25,10 @@ class puppios::params {
       $nrpe_server_package   = 'nagios-nrpe-server'
       $nrpe_package          = 'nagios-nrpe-plugin'
       $puppet_configdir      = '/etc/nagios3'
-
     }
-      default: {
-        fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} currently only supports osfamily Debian")
-      }
-  }
 
-   
+    default: {
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} currently only supports osfamily Debian")
+    }
+  }
 }
