@@ -17,7 +17,7 @@ class puppios::target::generic {
   @@nagios_service { "check_ping_${hostname}":
     use                 => "generic-service",
     service_description => "Check ping ${hostname}",
-    check_command       => "check_ping!200.0,80%!400.0,40%",
+    check_command       => "check_ping!200.0,40%!400.0,80%",
     host_name           => "$fqdn",
   }
 
