@@ -46,7 +46,7 @@ allowed_hosts=${nagios_server_ip}",
   include puppios::checks::auto
 
   puppios::checks::check_nrpe {"check_disk":
-    command => "check_disk -w 20% -c 10% -l -x /dev -x /run/lock -x /run -x /run/shm -x /run/shm -x /sys/fs/cgroup /var/lib/os-prober/mount"
+    command => "check_disk -w 20% -c 10% -l -x /dev -x /run/lock -x /run -x /run/shm -x /run/shm -x /sys/fs/cgroup -x /var/lib/os-prober/mount"
   }
   @@nagios_service { "check_disk_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_disk",
