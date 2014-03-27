@@ -3,9 +3,24 @@ class puppios::target::generic(
 ) inherits puppios::params {
   $os_downcase = downcase($operatingsystem)
 
+
+  if defined(Nagios_hostgroup[$hostgroup]) {
+    alert("$hostgroup exists")
+    notify {"yes $hostgroup":}
+  } else {
+    alert("$hostgroup doesnt exist")
+    notify {"no $hostgroup":}
+
+    @@nagios_hostgroup {$hostgroup:
+      ensure => present,}
+  }
+
+
   package { $puppios::params::nrpe_packages:
     ensure => installed,
   }
+
+
 
   file { "${puppios::params::nrpe_confdir}/${nagios_server_name}.cfg":
     ensure  => present,
@@ -24,10 +39,12 @@ allowed_hosts=${nagios_server_ip}",
   }
 
   @@nagios_host { $fqdn:
-    ensure  => present,
-    alias   => $hostname,
-    address => $ipaddress,
-    use     => "generic-host",
+    ensure     => present,
+    alias      => $hostname,
+    address    => $ipaddress,
+    use        => "generic-host",
+    notes_url  => "https://$serverip/hosts/$::fqdn",
+    hostgroups => $hostgroup,
   }
 
   @@nagios_hostextinfo { $fqdn:

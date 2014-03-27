@@ -13,23 +13,22 @@
 # Sample Usage:
 #
 class puppios::server (
-  $puppet_webuser      = $puppios::params::puppet_webuser,
-  $puppet_webpassword  = $puppios::params::puppet_webpassword,
-  $puppet_configdir    = $puppios::params::puppet_configdir,
+  $nagios_users,
+  $nagios_configdir    = $puppios::params::nagios_configdir,
   ) inherits puppios::params
   {
 
-  #Install nagios packages
+  #Install nrragios packages
   package { $puppios::params::server_packages:
     ensure => present,
     #notify => Service["${puppios::params::nagios_service}"]
   }
 
-  # add a htpasswd user for nagios
-  htpasswd { $puppios::params::puppet_webuser:
-    cryptpasswd => $puppet_webpassword,  # encrypted password hash goes here
-    target      => "${puppet_configdir}/htpasswd.users",
+  $nagios_users_defaults = {
+     'target'   => "$nagios_configdir/htpasswd.users",
+     'notify'   => "Service[$puppios::params::nagios_service]",
   }
+  create_resources('htpasswd', $nagios_users, $nagios_users_defaults)
 
   #Set permissions on the htpassword file
   file { "${puppios::params::nagios_configdir}/htpasswd.users":
@@ -56,8 +55,10 @@ class puppios::server (
 
   #Collect resources and populate /etc/nagios/nagios_*.cfg
   Nagios_host <<||>>
+  Nagios_hostgroup <<||>>
   Nagios_service <<||>>
   Nagios_hostextinfo <<||>>
   Nagios_command <<||>>
+  Nagios_servicegroup <<||>>
 }
 

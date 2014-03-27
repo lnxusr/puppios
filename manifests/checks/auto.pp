@@ -4,8 +4,9 @@ class puppios::checks::auto(
   #Check for classes
 
   #check for postgres class, if available add the check_postgres class
-  if defined(Class['postgresql']) {
+  if defined(Class['ib::db']) {
     include puppios::checks::check_postgres
+    notify {"Postgres Yeeeaaahhh":}
   }
 
   #check for ntp class, if available add the check_ntp_time class
