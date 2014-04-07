@@ -55,7 +55,7 @@ class puppios::params {
       fail(
         "Unsupported osfamily: ${::osfamily} operatingsystem:
          ${::operatingsystem}, module ${module_name} currently
-         only supports osfamily Debian")
+         only supports osfamily \'Debian\'")
     }
   }
 }
