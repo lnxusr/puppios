@@ -22,33 +22,34 @@ class puppios::params {
 
   case $::osfamily {
     'Debian': {
-      $server_packages       = ['nagios3',
+      $server_packages       = ['nagios3',               #OS Packages for nagios server
                                 'nagios-images',
                                 'nagios-plugins',
                                 'nagios3-doc',
                                 'nagios-nrpe-plugin',
                                 'nagiosgrapher']
       $server_plugin_package = 'nagios-plugins'
-      $nagios_configdir      = '/etc/nagios3'
-      $nagios_service        = 'nagios3'
-      $nagios_check_dir      = '/usr/lib/nagios/plugins'
+      $nagios_configdir      = '/etc/nagios3'            #Filesystem location for default nagios config files
+      $nagios_service        = 'nagios3'                 #Name of the nagios service
+      $nagios_check_dir      = '/usr/lib/nagios/plugins' #Filesystem location for nagios checkscript
+      $nagios_file_owner     = 'root'                    #System user for nagios files
+      $nagios_file_group     = 'nagios'                  #System group for nagios files
+      $nagios_file_mode      = '640'                     #Filesystem creation mode for nagios files
 
       #Variables for nagios nrpe system
-      $nrpe_packages         = ['nagios-nrpe-server',
+      $nrpe_packages         = ['nagios-nrpe-server',    #OS Packages for nagios nrpe client
                                 'nagios-plugins-basic',
                                 'nagios-plugins',
                                 'nagios-plugins-extra']
-      $nrpe_confdir          = '/etc/nagios/nrpe.d'
-      $nrpe_service          = 'nagios-nrpe-server'
+      $nrpe_confdir          = '/etc/nagios/nrpe.d'      #Filesystem location for nrpe config files
+      $nrpe_service          = 'nagios-nrpe-server'      #Name of nagios nrpe service
 
       #Variables for pnp4nagios
-      $pnp4nag_packages      = ['pnp4nagios',
+      $pnp4nag_packages      = ['pnp4nagios',            #OS packages for pnp4nagios system
                                 'pnp4nagios-bin',
                                 'pnp4nagios-web']
-      $pnp4nag_confdir       = '/etc/pnp4nagios'
+      $pnp4nag_confdir       = '/etc/pnp4nagios'         #Filesystem location for pnp4nagios config files
 
-      #Variables for 'check' classes
-      $nagios_check_postgres = 'check-postgres'
     }
 
     default: {
