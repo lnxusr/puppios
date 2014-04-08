@@ -5,3 +5,4 @@ class puppios::checks::ntp::auto{
     include puppios::checks::ntp::check
     }
   }
+}
