@@ -5,13 +5,13 @@ class puppios::checks::postgres::auto(
   notify{"detecting postgres":}
   case $check_level{
     'Class': {
-      #check for postgres class, if available add the check_postgres class
+      #check for postgres class, if available add the puppios::checks::postgres::check class
       if defined(Class['postgresql'])
       or defined(Class['ib::db'])    # Temporary hack for our specific needs!
         { 
           notify{"detected postgres: Yeahhh":}
           if ! defined(Class['puppios::checks::postgres::checks']) {
-          include puppios::checks::check_postgres
+          include puppios::checks::postgres::check
         }
       }
       else{
