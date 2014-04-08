@@ -1,5 +1,6 @@
 define puppios::checks::postgres::check(
-  ) include  puppios::params {
+  ) {
+  include puppios::params
   $servicegroups = ["Database","Postgres"]
 
   define createGroups {
