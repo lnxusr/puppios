@@ -1,4 +1,4 @@
-class puppios::checks::postgress::auto(
+class puppios::checks::postgres::auto(
   $check_level = 'Class'
   )
 {
