@@ -1,4 +1,4 @@
-class puppios::checks::postgres::check(
+define puppios::checks::postgres::check(
   ) inherits  puppios::params {
   $servicegroups = ["Database","Postgres"]
 
