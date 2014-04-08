@@ -2,5 +2,8 @@ class puppios::checks::auto(
 ) inherits puppios::params {
   notify{"auto check rule!":}
 
-  import '*/auto.pp'
+
+  #include auto checks for
+  include puppios::checks::ntp::auto
+  include puppios::checks::postgres::auto
 }
