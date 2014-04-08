@@ -10,8 +10,8 @@ class puppios::checks::postgres::auto(
       or defined(Class['ib::db'])    # Temporary hack for our specific needs!
         { 
           notify{"detected postgres: Yeahhh":}
-          if ! defined(Class['puppios::checks::postgres::checks']) {
-          include puppios::checks::postgres::check
+          if ! defined(puppios::checks::postgres::checks["nagios_postgres_${::fqdn}"]) {
+          puppios::checks::postgres::check {"nagios_postgres_${::fqdn}":}
         }
       }
       else{
