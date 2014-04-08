@@ -3,14 +3,15 @@ define puppios::checks::postgres::check(
   include puppios::params
   $servicegroups = ["Database","Postgres"]
 
-  define createGroups {
-  if ! defined(Nagios_servicegroup[$name]) {
-    @@nagios_servicegroup {$name:
-      ensure => present,}
-    }
-  }
-  createGroups{ $servicegroups:}
+  #define createGroups {
+  #if ! defined(Nagios_servicegroup[$name]) {
+  #  @@nagios_servicegroup {$name:
+  #    ensure => present,}
+  #  }
+  #}
+  #createGroups{ $servicegroups:}
 
+  create_resources('@@puppios::resource::service_group', $servicegroups)
   
   package { "${puppios::checks::postgres::params::nagios_check_packages}":
     ensure => present,
