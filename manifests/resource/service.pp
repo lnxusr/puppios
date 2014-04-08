@@ -69,26 +69,26 @@ define puppios::resource::service(
     fail('The service variable \'service_description\' cannot be empty')
   }
 
-  # Check if a service group or multiple service groups are defined
-  # If so, check if it exists if not create a simple service group
-  # also, join the array
-  if $servicegroups != '' {
-    define createGroups {
-      if ! defined(Nagios_servicegroup[$name]) {
-        @@nagios_servicegroup {$name:
-          ensure => present,
-        }
-      }
-    } 
-    createGroups{ $servicegroups:}
-
-    if is_array($servicegroups) {
-      $groupstring = join([$servicegroups],","),
-    }
-    else {
-      $groupstring = $servicegroups
-    }
-  }
+  ## Check if a service group or multiple service groups are defined
+  ## If so, check if it exists if not create a simple service group
+  ## also, join the array
+  #if $servicegroups != '' {
+  #  define createGroups {
+  #    if ! defined(Nagios_servicegroup[$name]) {
+  #      @@nagios_servicegroup {$name:
+  #        ensure => present,
+  #      }
+  #    }
+  #  } 
+  #  createGroups{ $servicegroups:}
+#
+  #  if is_array($servicegroups) {
+  #    $groupstring = join([$servicegroups],","),
+  #  }
+  #  else {
+  #    $groupstring = $servicegroups
+  #  }
+  #}
 
   # Check if the host is defined on a nagios server.
   # if so, don't export the resources but add them localy
