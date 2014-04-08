@@ -1,5 +1,5 @@
 class puppios::checks::http(
   $hash
 ){
-  create_resources("$name::check", $hash)
+  create_resources("${name}::check", $hash)
 }
