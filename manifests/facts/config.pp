@@ -15,10 +15,12 @@ class puppios::facts::config {
     owner => 'root',
     group => 'root',
     mode  => '0644'
-  }->
+  }
   concat::fragment{ 'hostgroups_header':
     target  => '/var/cache/puppios/facts.d/hostgroups.list',
     content => "\n##Puppios hostgroups\n\n",
     order   => '01'
   }
+
+  Concat::Fragment <<| tag == 'hostgroup' |>>
 }
