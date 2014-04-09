@@ -11,14 +11,14 @@ class puppios::facts::config {
     recurse => true,
     purge   => true,
   }->
-  concat { '/var/cache/puppios/facts.d/hostgroups.list':
+  concat { '/var/cache/puppios/facts.d/hostgroup.list':
     owner          => 'root',
     group          => 'root',
     mode           => '0644',
     ensure_newline => true,
   }
   concat::fragment{ 'hostgroups_header':
-    target  => '/var/cache/puppios/facts.d/hostgroups.list',
+    target  => '/var/cache/puppios/facts.d/hostgroup.list',
     content => "##Puppios hostgroups\n\n",
     order   => '01'
   }
