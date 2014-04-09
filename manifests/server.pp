@@ -17,6 +17,7 @@ class puppios::server (
   $nagios_configdir    = $puppios::params::nagios_configdir,
   ) inherits puppios::params
   {
+  include puppios::facts::config
   #Install nrragios packages
   package { $puppios::params::server_packages:
     ensure => present,
