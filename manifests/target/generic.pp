@@ -3,7 +3,6 @@ class puppios::target::generic(
 ) inherits puppios::params {
   $os_downcase = downcase($operatingsystem)
 
-
   if defined(Nagios_hostgroup[$hostgroup]) {
     alert("$hostgroup exists")
     notify {"yes $hostgroup":}
@@ -15,12 +14,9 @@ class puppios::target::generic(
   #    ensure => present,}
   }
 
-
   package { $puppios::params::nrpe_packages:
     ensure => installed,
   }
-
-
 
   file { "${puppios::params::nrpe_confdir}/${nagios_server_name}.cfg":
     ensure  => present,
