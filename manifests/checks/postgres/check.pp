@@ -13,7 +13,7 @@ define puppios::checks::postgres::check(
   #createGroups{ $servicegroups:}
 
   #create_resources('@@puppios::resource::service_group', $servicegroups)
-  puppios::resource::auto_hostgroup {$servicegroups:}
+  puppios::resource::auto_hostgroup {'postgres_auto':}
   package { "${puppios::checks::postgres::params::nagios_check_packages}":
     ensure => present,
   }
