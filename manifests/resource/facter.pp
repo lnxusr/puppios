@@ -7,5 +7,6 @@ class puppios::resource::facter {
       mode    => '0644',
       content => "${title}=${value}",
       require => Class['puppios::resource::fact_config'],
+    }
   }
 }
