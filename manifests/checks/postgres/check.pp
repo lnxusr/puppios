@@ -5,10 +5,6 @@ define puppios::checks::postgres::check(
   include puppios::resource::facter
   $servicegroups = ["Database","Postgres"]
 
-  @@puppios::resource::facter::fact { 'hostgroup_postgres_$::fqdn':
-    value => 'postgres',
-    tag   => ['hostgroup']}
-
   #define createGroups {
   #if ! defined(Nagios_servicegroup[$name]) {
   #  @@nagios_servicegroup {$name:
