@@ -27,7 +27,7 @@ class puppios::target::generic(
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    require => Package[$puppios::params::nrpe_packages],
+#    require => Package[$puppios::params::nrpe_packages],
     notify  => Service[$puppios::params::nrpe_service],
     content => "#File managed by puppet
 allowed_hosts=${nagios_server_ip}",
@@ -35,7 +35,7 @@ allowed_hosts=${nagios_server_ip}",
 
   service { "$puppios::params::nrpe_service":
     ensure  => running,
-    require => Package[$puppios::params::nrpe_packages],
+#    require => Package[$puppios::params::nrpe_packages],
   }
 
   @@nagios_host { $fqdn:

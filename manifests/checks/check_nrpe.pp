@@ -28,7 +28,7 @@ define puppios::checks::check_nrpe(
 
   file { "${puppios::params::nrpe_confdir}/$name.cfg":
     content => "command[${name}]=${sudo_command}${command_string}\n",
-    require => Package[$puppios::params::nrpe_packages],
+#    require => Package[$puppios::params::nrpe_packages],
     notify  => Service[$puppios::params::nrpe_service],
   }
 }
