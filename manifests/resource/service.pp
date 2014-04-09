@@ -99,8 +99,8 @@ define puppios::resource::service(
     $puppios_service = '@@nagios_service'
   }
 
-  if ! defined(nagios_service[$]) {
-    $puppios_service {$_naginator_name:
+#  if ! defined(nagios_service[$]) {
+    @@nagios_service {$_naginator_name:
       ensure                       => $ensure,
       action_url                   => $action_url,
       active_checks_enabled        => $active_checks_enabled,
@@ -155,5 +155,5 @@ define puppios::resource::service(
       target                       => $target,
       use                          => $use,
     }  
-  }
+#  }
 }
