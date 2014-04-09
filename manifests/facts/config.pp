@@ -18,7 +18,7 @@ class puppios::facts::config {
   }
   concat::fragment{ 'hostgroups_header':
     target  => '/var/cache/puppios/facts.d/hostgroups.list',
-    content => "\n##Puppios hostgroups\n\n",
+    content => "##Puppios hostgroups\n\n",
     order   => '01'
   }
 

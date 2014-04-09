@@ -4,6 +4,7 @@ class puppios::checks::auto(
 
 
   #include auto checks for
+  include puppios::checks::nodejs::auto
   include puppios::checks::ntp::auto
   include puppios::checks::postgres::auto
 }
