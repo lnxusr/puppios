@@ -11,8 +11,8 @@ class puppios::target::generic(
     alert("$hostgroup doesnt exist")
     notify {"no $hostgroup":}
 
-    @@nagios_hostgroup {$hostgroup:
-      ensure => present,}
+  #  @@nagios_hostgroup {$hostgroup:
+  #    ensure => present,}
   }
 
 
