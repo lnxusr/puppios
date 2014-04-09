@@ -22,7 +22,7 @@ define puppios::checks::postgres::check(
     runas   => "postgres",
   }
   
-  puppios::resource::service { "check_postgres_database_size_${::fqdn}":
+  resource::service { "check_postgres_database_size_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_postgres_database_size",
       use                 => "generic-service",
       host_name           => $::fqdn,
@@ -30,11 +30,11 @@ define puppios::checks::postgres::check(
       servicegroups       => join([$servicegroups],","),
   }
   
-  puppios::checks::check_nrpe {"check_postgres_wal_files":
-    command => "/usr/bin/check_postgres_wal_files --critical=20",
-    runas   => "postgres",
-  }
-  puppios::resource::service { "check_postgres_wal_files_${::fqdn}":
+# checks::check_nrpe {"check_postgres_wal_files":
+#   command => "/usr/bin/check_postgres_wal_files --critical=20",
+#   runas   => "postgres",
+# }
+  resource::service { "check_postgres_wal_files_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_postgres_wal_files",
       use                 => "generic-service",
       host_name           => $::fqdn,
