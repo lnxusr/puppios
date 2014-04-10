@@ -21,29 +21,15 @@ define puppios::checks::rabbitmq::check(
     nagios_check_name => 'rabbitmq',
     require           => Package[$puppios::checks::rabbitmq::params::rabbitmq_check_package]
   }
-  checks::check_nrpe {"check_rabbitmq_server_$rabbitmq_host":
-    command => "/usr/lib/nagios/plugins/check_rabbitmq_server -H \"$rabbitmq_host\" -u \"$rabbitmq_user\" -p \"$rabbitmq_password\" --port=\"15672\"",
-  }
-  resource::service { "check_rabbitmq_server_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_rabbitmq_server_$rabbitmq_host",
-      use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_rabbitmq_server",
-      servicegroups       => join([$servicegroups],","),
-      puppios_managed     => true,
+
+  puppios::checks::rabbitmq::server{"rabbitmq_server_${::fqdn}":
+    rabbitmq_user     => $rabbitmq_user,
+    rabbitmq_password => $rabbitmq_password
   }
 
-  checks::check_nrpe {"check_rabbitmq_overview_$rabbitmq_host":
-    command => "/usr/lib/nagios/plugins/check_rabbitmq_overview -H \"$rabbitmq_host\" -u \"$rabbitmq_user\" -p \"$rabbitmq_password\" --port=\"15672\" -c 1000,1000,1000 -w 700,700,700",
-  }
-
-  resource::service { "check_rabbitmq_overview_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_rabbitmq_overview_$rabbitmq_host",
-      use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_rabbitmq_overview",
-      servicegroups       => join([$servicegroups],","),
-      puppios_managed     => true,
+  puppios::checks::rabbitmq::overview{"rabbitmq_overview_${::fqdn}":
+    rabbitmq_user     => $rabbitmq_user,
+    rabbitmq_password => $rabbitmq_password
   }
 
   checks::check_nrpe {"check_rabbitmq_objects_$rabbitmq_host":
