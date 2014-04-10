@@ -2,8 +2,8 @@ class puppios::checks::rabbitmq::scripts(
   $ensure = 'present'
 )
 inherits puppios::params
-inherits puppios::checks::rabbitmq::params
 {
+  include checks::rabbitmq::params
   $nagios_check_name = 'rabbitmq'
   $nagios_check_files = ['check_rabbitmq_aliveness',
                          'check_rabbitmq_objects',
