@@ -32,5 +32,6 @@ define puppios::checks::rabbitmq::check(
       host_name           => $::fqdn,
       service_description => "check_rabbitmq_server",
       servicegroups       => join([$servicegroups],","),
+      puppios_managed     => true,
   }
 }

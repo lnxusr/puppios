@@ -99,7 +99,7 @@ define puppios::resource::service(
     $puppios_service = '@@nagios_service'
   }
 
-    @@nagios_service {$_naginator_name:
+    @@nagios_service {$name:
       ensure                       => $ensure,
       action_url                   => $action_url,
       active_checks_enabled        => $active_checks_enabled,
