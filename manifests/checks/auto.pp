@@ -7,4 +7,5 @@ class puppios::checks::auto(
   include puppios::checks::nodejs::auto
   include puppios::checks::ntp::auto
   include puppios::checks::postgres::auto
+  include puppios::checks::rabbitmq::auto
 }
