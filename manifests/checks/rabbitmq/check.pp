@@ -13,6 +13,5 @@ define puppios::checks::rabbitmq::check(
                          'check_rabbitmq_watermark']
 
 
-  pupios::resource::check_file {$nagios_check_files:}
-
+  puppios::resource::check_file {$nagios_check_files:}
 }
