@@ -14,7 +14,7 @@ define puppios::checks::rabbitmq::check(
                          'check_rabbitmq_shovels',
                          'check_rabbitmq_watermark']
 
-  package {$puppios::checks::rabbitmq::params::libwww_perl_package:
+  package {$puppios::checks::rabbitmq::params::rabbitmq_check_package:
     ensure => installed }
 
   puppios::resource::check_file {$nagios_check_files:
