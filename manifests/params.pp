@@ -27,7 +27,8 @@ class puppios::params {
                                 'nagios-plugins',
                                 'nagios3-doc',
                                 'nagios-nrpe-plugin',
-                                'nagiosgrapher']
+                                'nagiosgrapher',
+                                'libnagios-plugin-perl']
       $server_plugin_package = 'nagios-plugins'
       $nagios_configdir      = '/etc/nagios3'            #Filesystem location for default nagios config files
       $nagios_service        = 'nagios3'                 #Name of the nagios service
@@ -40,7 +41,8 @@ class puppios::params {
       $nrpe_packages         = ['nagios-nrpe-server',    #OS Packages for nagios nrpe client
                                 'nagios-plugins-basic',
                                 'nagios-plugins',
-                                'nagios-plugins-extra']
+                                'nagios-plugins-extra',
+                                'libnagios-plugin-perl']
       $nrpe_confdir          = '/etc/nagios/nrpe.d'      #Filesystem location for nrpe config files
       $nrpe_service          = 'nagios-nrpe-server'      #Name of nagios nrpe service
 
