@@ -9,8 +9,8 @@ class puppios::checks::nodejs::auto(
       if defined(Class['nodejs'])
         { 
           notify{"detected nodejs: Yeahhh":}
-          if ! defined(puppios::checks::nodejs::checks["nagios_nodejs_${::fqdn}"]) {
-          puppios::checks::nodejs::check {"nagios_nodejs_${::fqdn}":}
+          if ! defined(Checks::Nodejs::Checks["nagios_nodejs_${::fqdn}"]) {
+          checks::nodejs::check {"nagios_nodejs_${::fqdn}":}
         }
       }
       else{
