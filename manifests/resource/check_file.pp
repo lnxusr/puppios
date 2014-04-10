@@ -1,4 +1,4 @@
-define pupios::resource::check_file (
+define puppios::resource::check_file (
 ){
   
   file {$name:
