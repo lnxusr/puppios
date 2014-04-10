@@ -6,7 +6,7 @@ define puppios::checks::rabbitmq::overview(
   $rabbitmq_warning  = $puppios::checks::rabbitmq::params::rabbitmq_overview_warning,
   $rabbitmq_critical = $puppios::checks::rabbitmq::params::rabbitmq_overview_warning
   ){
-  include ::checks::rabbitmq::params
+  include checks::rabbitmq::params
   checks::check_nrpe {"check_rabbitmq_overview_$rabbitmq_host":
     command => "/usr/lib/nagios/plugins/check_rabbitmq_overview -H \"$rabbitmq_host\" -u \"$rabbitmq_user\" -p \"$rabbitmq_password\" --port=\"15672\" -c $rabbitmq_critical -w $rabbitmq_warning",
   }
