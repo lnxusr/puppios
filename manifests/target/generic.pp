@@ -14,7 +14,7 @@ class puppios::target::generic(
 # #    ensure => present,}
 # }
 
-  resource::auto_hostgroup {$hostgroup:}
+#  resource::auto_hostgroup {$hostgroup:}
 
   package { $puppios::params::nrpe_packages:
     ensure => installed,
