@@ -8,7 +8,6 @@ class puppios::checks::rabbitmq::auto(
       if defined(Class['rabbitmq'])
         { 
           if ! defined(Checks::Rabbitmq::Checks["nagios_rabbitmq_${::fqdn}"]) {
-          checks::rabbitmq::check {"nagios_rabbitmq_${::fqdn}":}
           include puppios::checks::rabbitmq::scripts
 
           puppios::checks::rabbitmq::server{"rabbitmq_server_${::fqdn}":
