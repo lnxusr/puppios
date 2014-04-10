@@ -8,10 +8,10 @@ define puppios::checks::postgres::check(
     ensure => present,
   }
 
- # puppios::checks::check_nrpe {"check_postgres_database_size":
- #   command => "/usr/bin/check_postgres_database_size --warning='80 GB' --critical='90 GB'",
- #   runas   => "postgres",
- # }
+  puppios::checks::check_nrpe {"check_postgres_database_size":
+    command => "/usr/bin/check_postgres_database_size --warning='80 GB' --critical='90 GB'",
+    runas   => "postgres",
+  }
   
   resource::service { "check_postgres_database_size_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_postgres_database_size",
@@ -21,10 +21,10 @@ define puppios::checks::postgres::check(
       servicegroups       => join([$servicegroups],","),
   }
   
-# checks::check_nrpe {"check_postgres_wal_files":
-#   command => "/usr/bin/check_postgres_wal_files --critical=20",
-#   runas   => "postgres",
-# }
+ checks::check_nrpe {"check_postgres_wal_files":
+   command => "/usr/bin/check_postgres_wal_files --critical=20",
+   runas   => "postgres",
+ }
   resource::service { "check_postgres_wal_files_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_postgres_wal_files",
       use                 => "generic-service",
