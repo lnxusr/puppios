@@ -4,7 +4,7 @@ define puppios::checks::rabbitmq::overview(
   $rabbitmq_user     = $puppios::checks::rabbitmq::params::rabbitmq_user,
   $rabbitmq_password = $puppios::checks::rabbitmq::params::rabbitmq_password,
   $rabbitmq_warning  = $puppios::checks::rabbitmq::params::rabbitmq_overview_warning,
-  $rabbitmq_critical = $puppios::checks::rabbitmq::params::rabbitmq_overview_warning
+  $rabbitmq_critical = $puppios::checks::rabbitmq::params::rabbitmq_overview_critical
   ){
   include checks::rabbitmq::params
   checks::check_nrpe {"check_rabbitmq_overview_$rabbitmq_host":
