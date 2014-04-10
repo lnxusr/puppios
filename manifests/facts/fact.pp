@@ -4,7 +4,7 @@ define puppios::facts::fact(
 ){
     @@concat::fragment{ "$type_$title":
     target  => "/var/cache/puppios/facts.d/$type.list",
-    content => $title,
+    content => $content,
     tag     => $type,
   }
 }
