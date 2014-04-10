@@ -1,7 +1,7 @@
 define puppios::checks::rabbitmq::check(
-  $rabbitmq_host = $hostname,
-  $rabbitmq_user,
-  $rabbitmq_password,
+  $rabbitmq_host     = $hostname,
+  $rabbitmq_user     = undef,
+  $rabbitmq_password = undef,
   ) {
   include puppios::params
   include puppios::checks::rabbitmq::params
