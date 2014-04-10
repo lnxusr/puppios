@@ -1,6 +1,6 @@
 class puppios::checks::rabbitmq::params {
   #Set global variables
-  $rabbitmq_host              = ${::hostname},
+  $rabbitmq_host              = ${hostname},
   $rabbitmq_port              = '15672',
   $rabbitmq_user              = 'guest',
   $rabbitmq_password          = 'guest',
