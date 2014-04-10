@@ -1,7 +1,8 @@
 define puppios::checks::rabbitmq::check(
   ) {
   include puppios::params
-
+  include puppios::checks::check_nrpe
+  
   $nagios_check_name = 'rabbitmq'
   $nagios_check_files = ['check_rabbitmq_aliveness',
                          'check_rabbitmq_objects',
@@ -14,5 +15,6 @@ define puppios::checks::rabbitmq::check(
 
 
   puppios::resource::check_file {$nagios_check_files:
-    nagios_check_name => 'rabbitmq',}
+    nagios_check_name => 'rabbitmq',
+  }
 }
