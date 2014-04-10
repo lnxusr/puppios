@@ -1,4 +1,5 @@
 define puppios::resource::check_file (
+  $nagios_check_name
 ){
   
   file {$name:
