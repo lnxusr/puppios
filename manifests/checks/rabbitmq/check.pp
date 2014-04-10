@@ -1,7 +1,7 @@
 define puppios::checks::rabbitmq::check(
   ) {
   include puppios::params
-  
+
   $nagios_check_name = 'rabbitmq'
   $nagios_check_files = ['check_rabbitmq_aliveness',
                          'check_rabbitmq_objects',
@@ -12,12 +12,18 @@ define puppios::checks::rabbitmq::check(
                          'check_rabbitmq_shovels',
                          'check_rabbitmq_watermark']
 
-  file {$nagios_check_files:
+define puppios::checks::rabbitmq::check::file() {
+  file { $name : 
     path   => "$puppios::params::nagios_check_dir/$name",
-    ensure => present,
+    ensure => file,
     source => 'puppet:////modules/puppios/checks/$nagios_check_name/${name}',
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
+  }
+}
+
+
+  puppios::checks::rabbitmq::check::file {$nagios_check_files:
   }
 }
