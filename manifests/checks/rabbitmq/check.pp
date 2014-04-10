@@ -12,18 +12,7 @@ define puppios::checks::rabbitmq::check(
                          'check_rabbitmq_shovels',
                          'check_rabbitmq_watermark']
 
-define puppios::checks::rabbitmq::check::file() {
-  file { $name : 
-    path   => "$puppios::params::nagios_check_dir/$name",
-    ensure => file,
-    source => 'puppet:////modules/puppios/checks/$nagios_check_name/${name}',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-  }
-}
 
+  pupios::resource::check_file {$nagios_check_files:}
 
-  puppios::checks::rabbitmq::check::file {$nagios_check_files:
-  }
 }
