@@ -1,20 +1,8 @@
-#blatantly stolen from http://blog.gurski.org/index.php/2010/01/28/automatic-monitoring-with-puppet-and-nagios/
 class puppios::target::generic(
 ) inherits puppios::params {
+  include puppios::checks::auto
+
   $os_downcase = downcase($operatingsystem)
-
-# if defined(Nagios_hostgroup[$hostgroup]) {
-#   alert("$hostgroup exists")
-#   notify {"yes $hostgroup":}
-# } else {
-#   alert("$hostgroup doesnt exist")
-#   notify {"no $hostgroup":}
-
-# #  @@nagios_hostgroup {$hostgroup:
-# #    ensure => present,}
-# }
-
-#  resource::auto_hostgroup {$hostgroup:}
 
   package { $puppios::params::nrpe_packages:
     ensure => installed,
@@ -42,7 +30,6 @@ allowed_hosts=${nagios_server_ip}",
     address    => $ipaddress,
     use        => "generic-host",
     notes_url  => "https://$serverip/hosts/$::fqdn",
-    hostgroups => $hostgroup,
   }
 
   @@nagios_hostextinfo { $fqdn:
@@ -58,11 +45,11 @@ allowed_hosts=${nagios_server_ip}",
     check_command       => "check_ping!200.0,40%!400.0,80%",
     host_name           => "$fqdn",
   }
-  include puppios::checks::auto
 
   puppios::checks::check_nrpe {"check_disk":
     command => "check_disk -w 20% -c 10% -l -x /dev -x /run/lock -x /run -x /run/shm -x /run/shm -x /sys/fs/cgroup -x /var/lib/os-prober/mount"
   }
+
   @@nagios_service { "check_disk_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_disk",
       use                 => "generic-service",
@@ -70,14 +57,12 @@ allowed_hosts=${nagios_server_ip}",
       service_description => "check_disk",
   }
 
-
   @@nagios_service { "check_users_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_users",
       use                 => "generic-service",
       host_name           => $::fqdn,
       service_description => "check_user",
   }
-
 
   @@nagios_service { "check_load_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_load",

@@ -3,9 +3,6 @@ define puppios::checks::postgres::check(
   include puppios::params
   include puppios::checks::postgres::params
 
-  #create_resources('@@puppios::resource::service_group', $servicegroups)
-  resource::auto_hostgroup {'postgres':}
-
   
   package { "${puppios::checks::postgres::params::nagios_check_packages}":
     ensure => present,
