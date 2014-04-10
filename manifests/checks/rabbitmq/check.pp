@@ -1,7 +1,5 @@
 define puppios::checks::rabbitmq::check(
   $rabbitmq_host     = $hostname,
-  $rabbitmq_user     = undef,
-  $rabbitmq_password = undef,
   ) {
   include puppios::params
   include puppios::checks::rabbitmq::params
@@ -24,7 +22,7 @@ define puppios::checks::rabbitmq::check(
     require           => Package[$puppios::checks::rabbitmq::params::libwww_perl_package]
   }
   checks::check_nrpe {"check_rabbitmq_server_$rabbitmq_host":
-    command => "/usr/lib/nagios/plugins/check_rabbitmq_server -H \"$rabbitmq_host\" -u \"$rabbitmq_user\" -p \"$rabbitmq_password\" --port=\"15672\" --verbose",
+    command => "/usr/lib/nagios/plugins/check_rabbitmq_server -H \"$rabbitmq_host\" -u \"$rabbitmq_user\" -p \"$rabbitmq_password\" --port=\"15672\"",
   }
   resource::service { "check_rabbitmq_server_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_rabbitmq_server_$rabbitmq_host",
