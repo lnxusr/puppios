@@ -1,12 +1,12 @@
-define puppios::checks::http::check(
-  $http_fqdn,
-  $http_host,
-  $http_ssl,
-  $http_url,
-  $http_string,
-  $http_timeout = '5',
-  $http_expect = undef
-  ) 
+define puppios::check::http::basic(
+  $http_basic_fqdn,
+  $http_basic_host,
+  $http_basic_ssl = false,
+  $http_basic_url,
+  $http_basic_string,
+  $http_basic_timeout = '5',
+  $http_basic_expect = '\"200 OK\"'
+  )
   {
   include puppios::params
 
@@ -20,12 +20,7 @@ define puppios::checks::http::check(
     fail("$http_ssl not a correct value, please use bolean values")
   }
 
-  if $http_expect == '' {
-    $http_expect_command = '--expect="200 OK"'
-  }
-  else {
-    $http_expect_command = "--expect=\"${http_expect}\""
-  }
+  $http_expect_command = "--expect=\"${http_expect}\""
 
   if $http_string == '' {
     $http_string_command = ''

@@ -1,7 +1,7 @@
-class puppios::checks::ntp::check(
+class puppios::check::ntp::check(
   ) inherits  puppios::params {
 
-  puppios::checks::check_nrpe {"check_ntp_time":
+  puppios::check::check_nrpe {"check_ntp_time":
     command => "check_ntp_time -H ${ntp_server} -w 0.5 -c 1",
   }
   @@nagios_service { "check_ntp_time_${::fqdn}":

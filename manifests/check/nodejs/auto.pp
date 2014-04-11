@@ -1,16 +1,16 @@
-class puppios::checks::nodejs::auto(
+class puppios::check::nodejs::auto(
   $check_level = 'Class'
   )
 {
   notify{"detecting nodejs":}
   case $check_level{
     'Class': {
-      #check for nodejs class, if available add the puppios::checks::nodejs::check class
+      #check for nodejs class, if available add the puppios::check::nodejs::check class
       if defined(Class['nodejs'])
         { 
           notify{"detected nodejs: Yeahhh":}
-          if ! defined(Checks::Nodejs::Checks["nagios_nodejs_${::fqdn}"]) {
-          checks::nodejs::check {"nagios_nodejs_${::fqdn}":}
+          if ! defined(Puppios::Check::Nodejs::Checks["nagios_nodejs_${::fqdn}"]) {
+          puppios::check::nodejs::check {"nagios_nodejs_${::fqdn}":}
         }
       }
       else{

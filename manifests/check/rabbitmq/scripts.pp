@@ -1,9 +1,9 @@
-class puppios::checks::rabbitmq::scripts(
+class puppios::check::rabbitmq::scripts(
   $ensure = 'present'
 )
 inherits puppios::params
 {
-  include checks::rabbitmq::params
+  include puppios::check::rabbitmq::params
   $nagios_check_name = 'rabbitmq'
   $nagios_check_files = ['check_rabbitmq_aliveness',
                          'check_rabbitmq_objects',
@@ -14,13 +14,13 @@ inherits puppios::params
                          'check_rabbitmq_shovels',
                          'check_rabbitmq_watermark']
 
-  package {$puppios::checks::rabbitmq::params::rabbitmq_check_package:
+  package {$puppios::check::rabbitmq::params::rabbitmq_check_package:
     ensure => $ensure,
   }
 
   puppios::resource::check_file {$nagios_check_files:
     ensure            => $ensure,
     nagios_check_name => 'rabbitmq',
-    require           => Package[$puppios::checks::rabbitmq::params::rabbitmq_check_package]
+    require           => Package[$puppios::check::rabbitmq::params::rabbitmq_check_package]
   }
 }

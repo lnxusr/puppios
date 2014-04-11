@@ -1,4 +1,4 @@
-class puppios::checks::rabbitmq::params {
+class puppios::check::rabbitmq::params inherits puppios::params {
   #Set global variables
   $rabbitmq_host              = $hostname
   $rabbitmq_port              = '15672'

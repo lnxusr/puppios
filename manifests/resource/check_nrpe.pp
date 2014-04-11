@@ -1,4 +1,4 @@
-define puppios::checks::check_nrpe(
+define puppios::resource::nrpe(
   $command  ,
   $runas    = undef
   ){

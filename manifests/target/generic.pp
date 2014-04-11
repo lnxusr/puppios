@@ -1,6 +1,6 @@
 class puppios::target::generic(
 ) inherits puppios::params {
-  include puppios::checks::auto
+  include puppios::check::auto
 
   $os_downcase = downcase($operatingsystem)
 
@@ -46,7 +46,7 @@ allowed_hosts=${nagios_server_ip}",
     host_name           => "$fqdn",
   }
 
-  puppios::checks::check_nrpe {"check_disk":
+  puppios::check::check_nrpe {"check_disk":
     command => "check_disk -w 20% -c 10% -l -x /dev -x /run/lock -x /run -x /run/shm -x /run/shm -x /sys/fs/cgroup -x /var/lib/os-prober/mount"
   }
 
