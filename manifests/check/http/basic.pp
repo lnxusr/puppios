@@ -1,7 +1,7 @@
 define puppios::check::http::basic(
   $http_basic_fqdn,
   $http_basic_host,
-  $http_basic_ssl = false,
+  $http_basic_ssl,
   $http_basic_url,
   $http_basic_string,
   $http_basic_timeout = '5',
