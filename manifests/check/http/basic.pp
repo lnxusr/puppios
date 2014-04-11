@@ -20,20 +20,20 @@ define puppios::check::http::basic(
     fail("$http_basic_ssl not a correct value, please use bolean values")
   }
 
-  $http_expect_command = "--expect=\"${http_expect}\""
+  $http_expect_command = "--expect=\"${http_basic_expect}\""
 
   if $http_basic_string == '' {
-    $http_string_command = ''
+    $http_basic_string_command = ''
   }
   else {
-    $http_string_command = "-s \"$http_basic_string\""
+    $http_basic_string_command = "-s \"$http_basic_string\""
   }
 
   $command_variable_string = "${http_basic_string_command} ${http_expect_command}"
 
   nagios_command { "check_http_${title}":
     ensure       => 'present',
-    command_line => "/usr/lib/nagios/plugins/check_http $command_variable_ssl -H \'$http_basic_fqdn\' -u $http_url $command_variable_string",
+    command_line => "/usr/lib/nagios/plugins/check_http $command_variable_ssl -H \'$http_basic_fqdn\' -u $http_basic_url $command_variable_string",
     notify       => Service["${puppios::params::nagios_service}"]
   }
   nagios_service { "check_http_${title}":
