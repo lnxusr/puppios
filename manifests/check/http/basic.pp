@@ -40,7 +40,7 @@ define puppios::check::http::basic(
     use                 => "generic-service",
     service_description => "Check http ${title} ${http_basic_fqdn} for ${http_basic_string}",
     check_command       => "check_http_${title}!200.0,40%!400.0,80%",
-    host_name           => "$http_host",
+    host_name           => "$http_basic_host",
     notify              => Service["${puppios::params::nagios_service}"]
   }
 }
