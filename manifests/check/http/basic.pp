@@ -5,7 +5,7 @@ define puppios::check::http::basic(
   $http_basic_url,
   $http_basic_string,
   $http_basic_timeout = '5',
-  $http_basic_expect = '\"200 OK\"'
+  $http_basic_expect = '200 OK'
   )
   {
   include puppios::params
