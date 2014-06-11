@@ -2,7 +2,6 @@ class puppios::check::nodejs::auto(
   $check_level = 'Class'
   )
 {
-  notify{"detecting nodejs":}
   case $check_level{
     'Class': {
       #check for nodejs class, if available add the puppios::check::nodejs::check class

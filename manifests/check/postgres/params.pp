@@ -1,7 +1,7 @@
 class puppios::check::postgres::params {
   #set global variables
-  $database_size_warning  = '80 GB'
-  $database_size_critical = '90 GB'
+  $database_size_warning  = '90 GB'
+  $database_size_critical = '100 GB'
   $wal_files_warning      = '20'
   $wal_files_critical     = '30'
 

@@ -5,7 +5,7 @@ define puppios::check::postgres::database_size(
   include puppios::params
   include puppios::check::postgres::params
 
-  puppios::check::check_nrpe {"check_postgres_database_size":
+  puppios::check::nrpe::generic {"check_postgres_database_size":
     command => "/usr/bin/check_postgres_database_size --warning=\'$database_size_warning\' --critical=\'$database_size_critical\'",
     runas   => "postgres",
   }

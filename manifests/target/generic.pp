@@ -50,6 +50,10 @@ allowed_hosts=${nagios_server_ip}",
     command => "check_disk -w 20% -c 10% -l -x /dev -x /run/lock -x /run -x /run/shm -x /run/shm -x /sys/fs/cgroup -x /var/lib/os-prober/mount"
   }
 
+  puppios::check::nrpe::generic {"check_total_procs_300":
+    command => "check_procs -w 250 -c 300"
+  }
+
   @@nagios_service { "check_disk_${::fqdn}":
       check_command       => "check_nrpe_1arg!check_disk",
       use                 => "generic-service",
@@ -79,7 +83,7 @@ allowed_hosts=${nagios_server_ip}",
   }
 
   @@nagios_service { "check_total_procs_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_total_procs",
+      check_command       => "check_nrpe_1arg!check_total_procs_300",
       use                 => "generic-service",
       host_name           => $::fqdn,
       service_description => "check_total_procs",

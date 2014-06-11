@@ -4,7 +4,7 @@ define puppios::check::postgres::wal_files (
   ){
 
 
- puppios::check::check_nrpe {"check_postgres_wal_files":
+  puppios::check::nrpe::generic {"check_postgres_wal_files":
    command => "/usr/bin/check_postgres_wal_files -w $wal_files_warning -c $wal_files_critical",
    runas   => "postgres",
  }
