@@ -5,4 +5,6 @@ class puppios::check::auto(
   include puppios::check::ntp::auto
   include puppios::check::postgres::auto
   include puppios::check::rabbitmq::auto
+  include puppios::check::linux::auto
+  include puppios::check::ubuntu::auto
 }

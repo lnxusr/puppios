@@ -4,7 +4,7 @@ define puppios::check::rabbitmq::server(
   $rabbitmq_user     = $puppios::check::rabbitmq::params::rabbitmq_user,
   $rabbitmq_password = $puppios::check::rabbitmq::params::rabbitmq_password,
   ){
-  puppios::check::check_nrpe {"check_rabbitmq_server_$rabbitmq_host":
+  puppios::check::nrpe::generic {"check_rabbitmq_server_$rabbitmq_host":
     command => "/usr/lib/nagios/plugins/check_rabbitmq_server -H \"$rabbitmq_host\" --port=\"$rabbitmq_port\" -u \"$rabbitmq_user\" -p \"$rabbitmq_password\"",
   }
   puppios::resource::service { "check_rabbitmq_server_${::fqdn}":
