@@ -1,5 +1,5 @@
 name 'lnxusr-puppios'
-version '0.0.1'
+version '0.0.3'
 source 'git://github.com/lnxusr/puppios.git'
 author 'Wout van Heeswijk'
 description 'Puppet Nagios module'

@@ -1,12 +1,20 @@
-#puppios
+puppios
+=======
 
-
-####Table of Contents
+Table of Contents
+-----------------
 
 1. [Overview - What is the Puppios puppet module?](#overview)
+2. [Status - Where does the module stand at the moment](#Status)
 
-##overview
+Overview
+--------
+
 This is puppet modules will generate a fast, but flexibel, nagios deployment. This is achieved by using an autodetect system for monitoring specific service.
+
+
+Status
+------
 
 The first stage of development concists of:
 
@@ -18,3 +26,5 @@ The first stage of development concists of:
 6. [ ] Advanced autodetection for checks.
 
 Whenever possible this module wil add checks to the nagios system by autodetecting. Exceptions to this rule can exist but should be avoided as much as possible.
+
+
