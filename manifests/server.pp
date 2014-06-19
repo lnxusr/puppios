@@ -17,8 +17,8 @@ class puppios::server (
   $nagios_configdir    = $puppios::params::nagios_configdir,
   ) inherits puppios::params
   {
-  include puppios::facts::config
-  #Install nrragios packages
+
+  #Install nagios packages
   package { $puppios::params::server_packages:
     ensure => present,
     #notify => Service["${puppios::params::nagios_service}"]
@@ -54,10 +54,11 @@ class puppios::server (
   }
 
   #Collect resources and populate /etc/nagios/nagios_*.cfg
-  Nagios_host         <<||>>
-  Nagios_hostgroup    <<||>>
-  Nagios_service      <<||>>
-  Nagios_hostextinfo  <<||>>
-  Nagios_command      <<||>>
-  Nagios_servicegroup <<||>>
+  Nagios_host                       <<||>>
+  Nagios_hostgroup                  <<||>>
+  Nagios_service                    <<||>>
+  Nagios_hostextinfo                <<||>>
+  Nagios_command                    <<||>>
+  Nagios_servicegroup               <<||>>
+  Puppios::Resource::Auto_hostgroup <<||>>
 }
