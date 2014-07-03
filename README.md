@@ -21,6 +21,16 @@ The Puppios module allows you to manage the deployment of Nagios servers and hos
 
 Status
 ------
+=======
+2. [Status - Where does the module stand at the moment](#Status)
+
+Overview
+--------
+
+This is puppet modules will generate a fast, but flexibel, nagios deployment. This is achieved by using an autodetect system for monitoring specific service.
+
+Status
+------
 
 The first stage of development concists of:
 
@@ -40,3 +50,5 @@ Setup
 * package installation/service/configuration files for Nagios and Nagios NRPE.
 * listened-to ports
 
+=======
+Whenever possible this module wil add checks to the nagios system by autodetecting. Exceptions to this rule can exist but should be avoided as much as possible.

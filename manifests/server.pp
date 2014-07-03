@@ -54,5 +54,9 @@ class puppios::server (
   Nagios_hostextinfo                <<||>>
   Nagios_command                    <<||>>
   Nagios_servicegroup               <<||>>
+<<<<<<< HEAD
   Puppios::Resource::Host_group     <<||>>
+=======
+  Puppios::Resource::Auto_hostgroup <<||>>
+>>>>>>> 9b5ff1eda74518d53009c1cf9158bc529b979b32
 }
