@@ -1,4 +1,10 @@
 define puppios::resource::host_group(
+# Trick to create duplcate exported resources only once.
+# Learned (stolen) from James @ http://ttboj.wordpress.com/2013/06/04/collecting-duplicate-resources-in-puppet/
+#     $subnet,
+#     # [...]
+#     $range = [],
+#     $allow_duplicates = false
   $hostgroup_name    = $name,
   $ensure            = present,
   $action_url        = undef,
@@ -15,33 +21,44 @@ define puppios::resource::host_group(
   $register          = undef,
   $target            = undef,
   $use               = undef,
-  )
-  include puppios::params
-  {
-    if tagged(puppios::server) {
-      $puppios_hostgroup = 'nagios_hostgroup'
+  $allow_duplicates  = false
+) {
+  if $allow_duplicates { # a non empty string is also a true
+    # allow the user to specify a specific split string to use...
+    $c = type($allow_duplicates) ? {
+      'string' => "${allow_duplicates}",
+      default => '#',
     }
-    else {
-      $puppios_hostgroup = '@@nagios_hostgroup'
+    if "${c}" == '' {
+      fail('Split character(s) cannot be empty!')
     }
 
-  if ! defined(Nagios_hostgroup[$hostgroup_name]) {
-    $puppios_hostgroup {$hostgroup_name:
-      ensure            => $ensure,
-      action_url        => $action_url,
-      alias             => $alias,
-      group             => $group,
-      hostgroup_members => $hostgroup_members,
-      members           => $members,
-      mode              => $mode,             
-      notes             => $notes,
-      notes_url         => $notes_url,
-      owner             => $owner,
-      provider          => $provider,
-      realm             => $realm,
-      register          => $register,
-      target            => $target,
-      use               => $use,
+    # split into $realname-$uid where $realname can contain split chars
+    $realname = inline_template("<%= name.rindex('${c}').nil?? name : name.slice(0, name.rindex('${c}')) %>")
+    $uid = inline_template("<%= name.rindex('${c}').nil?? '' : name.slice(name.rindex('${c}')+'${c}'.length, name.length-name.rindex('${c}')-'${c}'.length) %>")
+
+    $params = { # this must use all the args as listed above...
+      hostgroup_name     => $hostgroup_name,
+      ensure             => $ensure,
+      #action_url         => $action_url,
+      #alias              => $alias,
+      #group              => $group,
+      #hostgroup_members  => $hostgroup_members,
+      #members            => $members,
+      #mode               => $mode,
+      #notes              => $notes, 
+      #notes_url          => $notes_url,
+      #owner              => $owner,
+      #provider           => $provider,
+      #realm              => $realm,
+      #register           => $register,
+      #target             => $target,
+      #use                => $use,
+      }
+    notify { "$name":}
+    ensure_resource('nagios_hostgroup', "${realname}", $params)
     }
-  }
+    else { # body of the actual resource...
+
+    }
 }

@@ -1,6 +1,6 @@
 {
   "name": "lnxusr/puppios",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "summary": "Puppet Nagios",
   "source": "git://github.com/lnxusr/puppios.git",
   "project_page": "https://github.com/lnxusr/puppios",

@@ -1,5 +1,8 @@
 class puppios::target::generic(
+  $hostgroups = ['generic'],
+  $ping_host  = true,
 ) inherits puppios::params {
+
   include puppios::check::auto
 
   $os_downcase = downcase($operatingsystem)
@@ -17,6 +20,21 @@ class puppios::target::generic(
     notify  => Service[$puppios::params::nrpe_service],
     content => "#File managed by puppet
 allowed_hosts=${nagios_server_ip}",
+  }
+
+  file { '/etc/facter':
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
+    mode   => '0755',
+  }
+
+  file { '/etc/facter/facts.d':
+    ensure  => directory,
+    owner   => 'puppet',
+    group   => 'puppet',
+    mode    => '0755',
+    require => File['/etc/facter'],
   }
 
   service { "$puppios::params::nrpe_service":
@@ -39,54 +57,14 @@ allowed_hosts=${nagios_server_ip}",
     statusmap_image => "base/$os_downcase.gd2",
   }
 
-  @@nagios_service { "check_ping_${hostname}":
-    use                 => "generic-service",
-    service_description => "check_ping",
-    check_command       => "check_ping!200.0,40%!400.0,80%",
-    host_name           => "$fqdn",
-  }
-
-  puppios::check::nrpe::generic {"check_disk":
-    command => "check_disk -w 20% -c 10% -l -x /dev -x /run/lock -x /run -x /run/shm -x /run/shm -x /sys/fs/cgroup -x /var/lib/os-prober/mount"
-  }
-
-  puppios::check::nrpe::generic {"check_total_procs_300":
-    command => "check_procs -w 250 -c 300"
-  }
-
-  @@nagios_service { "check_disk_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_disk",
+  if $ping_host == true {
+    @@nagios_service { "check_ping_${hostname}":
       use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_disk",
+      service_description => "check_ping",
+      check_command       => "check_ping!200.0,40%!400.0,80%",
+      host_name           => "$fqdn",
+    }
   }
 
-  @@nagios_service { "check_users_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_users",
-      use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_user",
-  }
-
-  @@nagios_service { "check_load_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_load",
-      use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_load",
-  }
-
-  @@nagios_service { "check_zombie_procs_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_zombie_procs",
-      use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_zombie_procs",
-  }
-
-  @@nagios_service { "check_total_procs_${::fqdn}":
-      check_command       => "check_nrpe_1arg!check_total_procs_300",
-      use                 => "generic-service",
-      host_name           => $::fqdn,
-      service_description => "check_total_procs",
-  }
 }
 
