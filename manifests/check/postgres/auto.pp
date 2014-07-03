@@ -25,10 +25,7 @@ class puppios::check::postgres::auto(
     }
     'File': {
       #Add a fact to facter
-<<<<<<< HEAD
       notify { "Postgres_file_check":}
-=======
->>>>>>> 9b5ff1eda74518d53009c1cf9158bc529b979b32
       exec { "add_puppios_fact_postgres_server":
         command => '/bin/echo "postgres_server=true" > /etc/facter/facts.d/puppios_postgres.txt',
         creates => '/etc/facter/facts.d/puppios_postgres.txt',
@@ -39,17 +36,14 @@ class puppios::check::postgres::auto(
       if $postgres_server ==  'true' {
         include puppios::check::postgres::scripts
 
-<<<<<<< HEAD
       #  @@puppios::resource::host_group {"postgres#${hostname}":
       #    allow_duplicates => '#',
       #  }
 
         #$puppios::target::generic::hostgroups += ['postgres','databse']
         notify { "Postgres":}
-=======
         #$puppios::target::generic::hostgroups += ['postgres','databse']
         #notify { $puppios::target::generic::hostgroups:}
->>>>>>> 9b5ff1eda74518d53009c1cf9158bc529b979b32
         puppios::check::postgres::wal_files{"postgres_wal_files_${::fqdn}":
         }
 

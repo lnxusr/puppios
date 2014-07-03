@@ -8,9 +8,6 @@ class puppios::check::linux::auto{
     include puppios::check::linux::total_procs
     include puppios::check::linux::load
     include puppios::check::linux::zombie_procs
-<<<<<<< HEAD
     include puppios::check::linux::swap
-=======
->>>>>>> 9b5ff1eda74518d53009c1cf9158bc529b979b32
   }
 }
