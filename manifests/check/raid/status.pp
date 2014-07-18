@@ -2,7 +2,7 @@ define puppios::check::raid::status ()
 {
 	puppios::check::nrpe::generic {"check_raid":
     command => 'check_raid',
-    user    => 'root',
+    runas    => 'root',
   }
 
   @@nagios_service { "check_raid_${::fqdn}":
