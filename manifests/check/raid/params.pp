@@ -3,7 +3,7 @@ inherits puppios::params {
   #Set global variables
    case $::osfamily {
     'Debian': {
-      $check_level                     = 'File'
+      $check_level = 'File'
     }
 
     default: {
