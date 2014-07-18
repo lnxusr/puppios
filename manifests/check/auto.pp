@@ -7,5 +7,6 @@ class puppios::check::auto(
   include puppios::check::postgres::auto
   include puppios::check::linux::auto
   include puppios::check::apt::auto
+  include puppios::check::raid::auto
   
 }
