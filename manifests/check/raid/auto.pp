@@ -1,5 +1,5 @@
 class puppios::check::raid::auto(
-  $check_level                   = $puppios::check::raid::params::check_level,
+  $check_level = $puppios::check::raid::params::check_level,
   )
   inherits puppios::check::raid::params
 {
@@ -14,7 +14,7 @@ class puppios::check::raid::auto(
       }
       #If it is a RabbitMQ server, add the checks
       if $hwraid_drive ==  'true' {
-          puppios::check::raid::status{"raid_status${::fqdn}":
+          puppios::check::raid::status{"raid_status_${::fqdn}":
           }
       }
     }
