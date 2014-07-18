@@ -1,11 +1,13 @@
 define puppios::check::http::basic(
+  $ensure                          = 'present',
   $http_basic_fqdn,
   $http_basic_host,
-  $http_basic_ssl = false,
+  $http_basic_ssl                  = false,
   $http_basic_url,
   $http_basic_string,
-  $http_basic_timeout = '5',
-  $http_basic_expect = '200 OK'
+  $http_basic_timeout              = '5',
+  $http_basic_expect               = '200 OK',
+  $http_basic_notification_options = 'w,r',
   )
   {
   include puppios::params
@@ -32,15 +34,17 @@ define puppios::check::http::basic(
   $command_variable_string = "${http_basic_string_command} ${http_expect_command}"
 
   nagios_command { "check_http_${title}":
-    ensure       => 'present',
+    ensure       => $ensure,
     command_line => "/usr/lib/nagios/plugins/check_http $command_variable_ssl -H \'$http_basic_fqdn\' -u $http_basic_url $command_variable_string",
     notify       => Service["${puppios::params::nagios_service}"]
   }
   nagios_service { "check_http_${title}":
-    use                 => "generic-service",
-    service_description => "Check http ${title} ${http_basic_fqdn} for ${http_basic_string}",
-    check_command       => "check_http_${title}!200.0,40%!400.0,80%",
-    host_name           => "$http_basic_host",
-    notify              => Service["${puppios::params::nagios_service}"]
+    ensure               => $ensure,
+    use                  => "generic-service",
+    service_description  => "Check http ${title} ${http_basic_fqdn} for ${http_basic_string}",
+    check_command        => "check_http_${title}!200.0,40%!400.0,80%",
+    host_name            => $http_basic_host,
+    notification_options => $http_basic_notification_options,
+    notify               => Service["${puppios::params::nagios_service}"]
   }
 }

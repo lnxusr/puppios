@@ -15,6 +15,7 @@
 class puppios::params {
   $puppet_webuser      = 'nagiosadmin'
   $puppet_webpassword  = undef
+  $hostgroups  = ['generic']
 
 
   # Find os family and set variables.

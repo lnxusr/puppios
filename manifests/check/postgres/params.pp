@@ -1,7 +1,5 @@
-class puppios::check::postgres::params(
-)
-inherits puppios::params
-{
+class puppios::check::postgres::params
+inherits puppios::params {
   #set global variables
   $database_size_warning  = '90 GB'
   $database_size_critical = '100 GB'

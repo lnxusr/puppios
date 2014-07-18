@@ -47,6 +47,11 @@ class puppios::server (
     require => Package[$puppios::params::server_packages]
   }
 
+  puppios::resource::host_group { 'generic':
+    ensure           => present,
+    allow_duplicates => '#',
+  }
+
   #Collect resources and populate /etc/nagios/nagios_*.cfg
   Nagios_host                       <<||>>
   Nagios_hostgroup                  <<||>>
@@ -54,5 +59,5 @@ class puppios::server (
   Nagios_hostextinfo                <<||>>
   Nagios_command                    <<||>>
   Nagios_servicegroup               <<||>>
-  Puppios::Resource::Auto_hostgroup <<||>>
+  Puppios::Resource::Host_group     <<||>>
 }

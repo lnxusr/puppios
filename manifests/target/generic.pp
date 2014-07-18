@@ -1,9 +1,21 @@
 class puppios::target::generic(
-  $hostgroups = ['generic'],
   $ping_host  = true,
 ) inherits puppios::params {
 
   include puppios::check::auto
+  if $postgres_server ==  'true'{
+    $postgres = ['postgres']
+    #notify {$puppios::params::hostgroups:}
+  }
+  if $rabbitmq_server ==  'true'{
+    $rabbitmq = ['rabbitmq']
+    #notify {$puppios::params::hostgroups:}
+  }else{
+    $rabbitmq = ['']
+  }
+
+  #$test = concat($puppios::params::hostgroups, $postgres)
+
 
   $os_downcase = downcase($operatingsystem)
 
@@ -46,6 +58,7 @@ allowed_hosts=${nagios_server_ip}",
     ensure     => present,
     alias      => $hostname,
     address    => $ipaddress,
+    #hostgroups => join($test, ","),
     use        => "generic-host",
     notes_url  => "https://$serverip/hosts/$::fqdn",
   }
@@ -65,6 +78,5 @@ allowed_hosts=${nagios_server_ip}",
       host_name           => "$fqdn",
     }
   }
-
 }
 

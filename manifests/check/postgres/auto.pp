@@ -1,13 +1,12 @@
 class puppios::check::postgres::auto(
-  $check_level               = $puppios::checks::postgres::params::check_level,
-  $pg_root_directory         = $puppios::checks::postgres::params::pg_root_directory,
-  $pg_server_executable_name = $puppios::checks::postgres::params::pg_server_executable_name
+  $check_level               = $puppios::check::postgres::params::check_level,
+  $pg_root_directory         = $puppios::check::postgres::params::pg_root_directory,
+  $pg_server_executable_name = $puppios::check::postgres::params::pg_server_executable_name
   )
   inherits puppios::check::postgres::params
 {
   case $check_level{
     'Class': {
-      notify { "Postgres_Class_check":}
       #check for postgres class, if available add the puppios::check::postgres::check class
       if defined(Class['postgresql'])
       or defined(Class['ibase::server'])    # Temporary hack for our specific needs!
@@ -25,7 +24,6 @@ class puppios::check::postgres::auto(
     }
     'File': {
       #Add a fact to facter
-      notify { "Postgres_file_check":}
       exec { "add_puppios_fact_postgres_server":
         command => '/bin/echo "postgres_server=true" > /etc/facter/facts.d/puppios_postgres.txt',
         creates => '/etc/facter/facts.d/puppios_postgres.txt',
@@ -36,14 +34,13 @@ class puppios::check::postgres::auto(
       if $postgres_server ==  'true' {
         include puppios::check::postgres::scripts
 
-      #  @@puppios::resource::host_group {"postgres#${hostname}":
-      #    allow_duplicates => '#',
-      #  }
+        @@puppios::resource::host_group {"postgres#${hostname}":
+          allow_duplicates => '#',
+        }
+
+        @puppios::resource::host_group_array { "postgres":}
 
         #$puppios::target::generic::hostgroups += ['postgres','databse']
-        notify { "Postgres":}
-        #$puppios::target::generic::hostgroups += ['postgres','databse']
-        #notify { $puppios::target::generic::hostgroups:}
         puppios::check::postgres::wal_files{"postgres_wal_files_${::fqdn}":
         }
 
@@ -51,7 +48,5 @@ class puppios::check::postgres::auto(
         }
       }
     }
-
   }
-
 }

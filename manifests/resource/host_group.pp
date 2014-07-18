@@ -1,10 +1,6 @@
 define puppios::resource::host_group(
 # Trick to create duplcate exported resources only once.
-# Learned (stolen) from James @ http://ttboj.wordpress.com/2013/06/04/collecting-duplicate-resources-in-puppet/
-#     $subnet,
-#     # [...]
-#     $range = [],
-#     $allow_duplicates = false
+# 'Found at'/'stolen from' James @ http://ttboj.wordpress.com/2013/06/04/collecting-duplicate-resources-in-puppet/
   $hostgroup_name    = $name,
   $ensure            = present,
   $action_url        = undef,
@@ -21,7 +17,7 @@ define puppios::resource::host_group(
   $register          = undef,
   $target            = undef,
   $use               = undef,
-  $allow_duplicates  = false
+  $allow_duplicates  = false,
 ) {
   if $allow_duplicates { # a non empty string is also a true
     # allow the user to specify a specific split string to use...
@@ -38,8 +34,7 @@ define puppios::resource::host_group(
     $uid = inline_template("<%= name.rindex('${c}').nil?? '' : name.slice(name.rindex('${c}')+'${c}'.length, name.length-name.rindex('${c}')-'${c}'.length) %>")
 
     $params = { # this must use all the args as listed above...
-      hostgroup_name     => $hostgroup_name,
-      ensure             => $ensure,
+      'ensure'             => $ensure,
       #action_url         => $action_url,
       #alias              => $alias,
       #group              => $group,
@@ -55,10 +50,9 @@ define puppios::resource::host_group(
       #target             => $target,
       #use                => $use,
       }
-    notify { "$name":}
     ensure_resource('nagios_hostgroup', "${realname}", $params)
     }
     else { # body of the actual resource...
-
+      notify{"allow_duplicates_missing":}
     }
 }
