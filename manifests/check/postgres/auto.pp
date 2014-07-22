@@ -1,6 +1,6 @@
 class puppios::check::postgres::auto(
   $check_level               = $puppios::check::postgres::params::check_level,
-  $pg_root_directory         = $puppios::check::postgres::params::pg_root_directory,
+  $pg_server_root_directory  = $puppios::check::postgres::params::pg_server_root_directory,
   $pg_server_executable_name = $puppios::check::postgres::params::pg_server_executable_name
   )
   inherits puppios::check::postgres::params
@@ -27,7 +27,7 @@ class puppios::check::postgres::auto(
       exec { "add_puppios_fact_postgres_server":
         command => '/bin/echo "postgres_server=true" > /etc/facter/facts.d/puppios_postgres.txt',
         creates => '/etc/facter/facts.d/puppios_postgres.txt',
-        onlyif  => "/usr/bin/find $pg_root_directory -type f -name \"$pg_server_executable_name\" | /bin/grep -e \'$pg_server_executable_name\'",
+        onlyif  => "/usr/bin/find $pg_server_root_directory -type f -name \"$pg_server_executable_name\" | /bin/grep -e \'$pg_server_executable_name\'",
         require => File['/etc/facter/facts.d'],
       }
       #If it is a postgres server, add the checks
