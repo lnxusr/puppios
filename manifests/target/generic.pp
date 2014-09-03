@@ -34,6 +34,15 @@ class puppios::target::generic(
 allowed_hosts=${nagios_server_ip}",
   }
 
+ini_setting { "enable arguments":
+  ensure  => present,
+  path    => '/etc/nagios/nrpe.cfg',
+  section => '',
+  setting => 'dont_blame_nrpe',
+  value   => '1',
+  notify => Service[$puppios::params::nrpe_service]
+}
+
   file { '/etc/facter':
     ensure => directory,
     owner  => 'puppet',
