@@ -80,7 +80,7 @@ ini_setting { "enable arguments":
   }
 
   if $ping_host == true {
-    @@nagios_service { "check_ping_${hostname}":
+    @@nagios_service { "check_ping_${fqdn}":
       use                 => "generic-service",
       service_description => "check_ping",
       check_command       => "check_ping!200.0,40%!400.0,80%",
